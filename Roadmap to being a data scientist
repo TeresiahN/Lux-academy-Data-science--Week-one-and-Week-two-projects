@@ -1,0 +1,74 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+#Sample dataset for a month
+data = {
+    'Date': ['2023-08-01', '2023-08-02', '2023-08-03', '2023-08-04', '2023-08-05',
+             '2023-08-06', '2023-08-07', '2023-08-08', '2023-08-09', '2023-08-10',
+             '2023-08-11', '2023-08-12', '2023-08-13', '2023-08-14', '2023-08-15',
+             '2023-08-16', '2023-08-17', '2023-08-18', '2023-08-19', '2023-08-20',
+             '2023-08-21', '2023-08-22', '2023-08-23', '2023-08-24', '2023-08-25',
+             '2023-08-26', '2023-08-27', '2023-08-28', '2023-08-29', '2023-08-30',
+             '2023-08-31'],
+    'Views': [5000, 7000, 8500, 9000, 10000,
+              12000, 13000, 13500, 14000, 14500,
+              15000, 15500, 16000, 16500, 17000,
+              17500, 18000, 18500, 19000, 19500,
+              20000, 20500, 21000, 21500, 22000,
+              22500, 23000, 23500, 24000, 24500,
+              22300],
+    'Likes': [300, 400, 600, 700, 800,
+              900, 1000, 1100, 1200, 1300,
+              1400, 1500, 1600, 1700, 1800,
+              1900, 2000, 2100, 2200, 2300,
+              2400, 2500, 2600, 2700, 2800,
+              2900, 3000, 3100, 3200, 3300,
+              2000],
+    'Comments': [50, 60, 70, 80, 90,
+                 100, 110, 120, 130, 140,
+                 150, 160, 170, 180, 190,
+                 200, 210, 220, 230, 240,
+                 250, 260, 270, 280, 290,
+                 300, 310, 320, 330, 340,
+                 270]
+}
+# Create a DataFrame from the sample data
+df = pd.DataFrame(data)
+
+# Convert the 'Date' column to a datetime object
+df['Date'] = pd.to_datetime(df['Date'])
+
+# Calculate the total views, likes, and comments for the month
+total_views = df['Views'].sum()
+total_likes = df['Likes'].sum()
+total_comments = df['Comments'].sum()
+
+# Calculate the average engagement rate (likes + comments per view) for the month
+average_engagement_rate = ((df['Likes'] + df['Comments']) / df['Views']).mean() * 100
+
+# Plot the engagement metrics over the month
+plt.figure(figsize=(11, 6))
+plt.plot(df['Date'], df['Views'], label='Views', marker='o')
+plt.plot(df['Date'], df['Likes'], label='Likes', marker='o')
+plt.plot(df['Date'], df['Comments'], label='Comments', marker='o')
+plt.xlabel('Date')
+plt.ylabel('Count')
+plt.title('IGTV Video Engagement Over One Month')
+plt.legend()
+plt.grid(True)
+
+# Display engagement summary for the month
+print("Engagement Summary for One Month:")
+print(f"Total Views: {total_views}")
+print(f"Total Likes: {total_likes}")
+print(f"Total Comments: {total_comments}")
+print(f"Average Engagement Rate: {average_engagement_rate:.2f}%")
+
+# Evaluate success based on engagement metrics
+if total_likes > 1000 and total_comments > 100 and average_engagement_rate > 5.0:
+    print("This IGTV product has been successful in the past month.")
+else:
+    print("This IGTV product may need improvement to achieve success.")
+
+# Show the plot
+plt.show()
